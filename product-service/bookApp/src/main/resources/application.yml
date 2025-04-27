@@ -1,0 +1,19 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: bookApp
+  datasource:
+    url: jdbc:mysql://localhost:3306/bookApp
+    username: root
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
