@@ -14,6 +14,7 @@ public class BookService {
 
     // Create
     public Book createBook(Book book) {
+        book.setBookId(null); // Ensure this is treated as new
         return bookRepository.save(book);
     }
 
@@ -29,23 +30,20 @@ public class BookService {
 
     // Update
     public Book updateBook(Long bookId, Book updatedBook) {
-        Optional<Book> existingBook = bookRepository.findById(bookId);
-        if (existingBook.isPresent()) {
-            Book book = existingBook.get();
-            book.setBookName(updatedBook.getBookName());
-            book.setAuthor(updatedBook.getAuthor());
-            return bookRepository.save(book);
-        } else {
-            throw new RuntimeException("Book not found with ID: " + bookId);
-        }
+        Book existingBook = bookRepository.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found with ID: " + bookId));
+
+        existingBook.setBookName(updatedBook.getBookName());
+        existingBook.setAuthor(updatedBook.getAuthor());
+
+        return bookRepository.save(existingBook); // Managed entity, safe update
     }
 
     // Delete
     public void deleteBook(Long bookId) {
-        if (bookRepository.existsById(bookId)) {
-            bookRepository.deleteById(bookId);
-        } else {
+        if (!bookRepository.existsById(bookId)) {
             throw new RuntimeException("Book not found with ID: " + bookId);
         }
+        bookRepository.deleteById(bookId);
     }
 }
