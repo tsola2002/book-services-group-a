@@ -1,43 +1,28 @@
 package com.olawale.ProductService.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
 import lombok.Generated;
 
 @Entity
-@Table(
-        name = "PRODUCT_LIBRARY"
-)
+@Table(name = "PRODUCT_LIBRARY")
 public class Product {
     @Id
-    @Column(
-            name = "COL_PRODUCT_ID",
-            unique = true
-    )
+    @Column(name = "COL_PRODUCT_ID", unique = true)
     private Long productId;
-    @Column(
-            name = "COL_PRODUCT_TITLE"
-    )
-    private String productTitle;
-    @JsonFormat(
-            pattern = "yyyy-MM-dd"
-    )
-    @Column(
-            name = "COL_YEAR"
-    )
-    private LocalDate year;
-    @Column(
-            name = "COL_PRICE"
-    )
-    private String productPrice;
 
-    public Product() {
-    }
+    @Column(name = "COL_PRODUCT_TITLE")
+    private String productTitle;
+
+    @Column(name = "COL_DESCRIPTION")
+    private String productDescription;
+
+    @Column(name = "COL_AUTHOR")
+    private String productAuthor;
+
+    public Product() {}
 
     @Generated
     public void setProductId(final Long productId) {
@@ -49,17 +34,14 @@ public class Product {
         this.productTitle = productTitle;
     }
 
-    @JsonFormat(
-            pattern = "yyyy-MM-dd"
-    )
     @Generated
-    public void setYear(final LocalDate year) {
-        this.year = year;
+    public void setProductDescription(final String productDescription) {
+        this.productDescription = productDescription;
     }
 
     @Generated
-    public void setProductPrice(final String productPrice) {
-        this.productPrice = productPrice;
+    public void setProductAuthor(final String productAuthor) {
+        this.productAuthor = productAuthor;
     }
 
     @Generated
@@ -73,12 +55,12 @@ public class Product {
     }
 
     @Generated
-    public LocalDate getYear() {
-        return this.year;
+    public String getProductDescription() {
+        return this.productDescription;
     }
 
     @Generated
-    public String getProductPrice() {
-        return this.productPrice;
+    public String getProductAuthor() {
+        return this.productAuthor;
     }
 }
