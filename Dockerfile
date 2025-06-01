@@ -1,10 +1,15 @@
-# Runtime stage only - using your pre-built JAR
-FROM eclipse-temurin:21-jre
+# Build stage
+FROM eclipse-temurin:21-jdk AS builder
 
+WORKDIR /app
+COPY . .
+RUN chmod +x gradlew && \
+    ./gradlew clean bootJar --no-daemon -x test
+
+# Runtime stage
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 EXPOSE 8080
 
-# Copy the specific JAR file from your host machine
-COPY build/libs/reviewService-0.0.1-SNAPSHOT.jar app.jar
-
+COPY --from=builder /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
