@@ -1,13 +1,10 @@
-# Build stage
-FROM eclipse-temurin:23 AS builder
+# Runtime stage only - using your pre-built JAR
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
-COPY build/libs/*.jar .
+EXPOSE 8080
 
-# Final stage
-FROM eclipse-temurin:23-jre
-
-WORKDIR /app
-COPY --from=builder /app/*.jar app.jar
+# Copy the specific JAR file from your host machine
+COPY build/libs/reviewService-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
