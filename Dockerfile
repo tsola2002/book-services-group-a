@@ -1,16 +1,13 @@
-FROM eclipse-temurin:23
+# Build stage
+FROM eclipse-temurin:23 AS builder
 
 WORKDIR /app
-COPY . .
+COPY build/libs/*.jar .
 
-
-# Use a smaller runtime image
+# Final stage
 FROM eclipse-temurin:23-jre
 
 WORKDIR /app
+COPY --from=builder /app/*.jar app.jar
 
-# Copy the built JAR from the previous stage
-COPY --from=0 /app/build/libs/*.jar app.jar
-
-# Run the Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
