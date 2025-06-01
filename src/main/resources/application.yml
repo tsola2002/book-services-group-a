@@ -1,0 +1,17 @@
+server:
+  port: 8020
+
+spring:
+  data:
+    mongodb:
+      uri: "mongodb+srv://lawalabdullateef16:12fA3HMytZAemJos@cluster0.vquitbc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tlsAllowInvalidCertificates=true"
+      database: reviewService
+
+eureka:
+  client:
+    service-url:
+      defaultZone: https://eureka-server-h6c0.onrender.com/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
