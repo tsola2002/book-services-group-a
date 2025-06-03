@@ -9,12 +9,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
+@CrossOrigin(
+        origins = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+        allowedHeaders = {"Content-Type", "Authorization"}
+)
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    // Create (POST)
+    // Create (POST) - accepts recommendationId in request JSON
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book createdBook = bookService.createBook(book);
@@ -36,7 +41,7 @@ public class BookController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Update (PUT)
+    // Update (PUT) - can also update recommendationId
     @PutMapping("/{bookId}")
     public ResponseEntity<Book> updateBook(@PathVariable Long bookId, @RequestBody Book book) {
         Book updatedBook = bookService.updateBook(bookId, book);

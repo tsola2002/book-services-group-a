@@ -8,6 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Build the project and package the Spring Boot application
+RUN mvn clean package -DskipTests -Dmaven.compiler.release=17
 
 # Stage 2: Runtime
 FROM eclipse-temurin:17

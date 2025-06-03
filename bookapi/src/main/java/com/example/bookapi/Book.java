@@ -1,7 +1,6 @@
 package com.example.bookapi;
 
 
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -21,6 +20,9 @@ public class Book {
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(nullable = true)
+    private Long recommendationId; // ✅ Added field
 
     // Constructors
     public Book() {}
@@ -61,5 +63,13 @@ public class Book {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getRecommendationId() {
+        return recommendationId;
+    }
+
+    public void setRecommendationId(Long recommendationId) {
+        this.recommendationId = recommendationId;
     }
 }
